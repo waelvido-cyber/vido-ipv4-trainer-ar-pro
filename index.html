@@ -21,7 +21,7 @@
 html{scroll-behavior:smooth}
 body{margin:0;min-height:100vh;color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif;background:
 linear-gradient(rgba(2,6,23,.72),rgba(2,6,23,.82)),
-url("./binary-background.jpg") center center/cover fixed no-repeat;overflow-x:hidden}
+var(--vido-bg) center center/cover fixed no-repeat;overflow-x:hidden;transition:background-image .8s ease}
 body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.10;background-image:linear-gradient(rgba(148,163,184,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(148,163,184,.08) 1px,transparent 1px);background-size:38px 38px}
 .wrap{max-width:980px;margin:auto;padding:calc(18px + env(safe-area-inset-top)) 14px calc(40px + env(safe-area-inset-bottom));position:relative;z-index:1}
 .hero{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;padding:18px 4px 20px}
@@ -99,7 +99,7 @@ button:active{transform:scale(.985)}
   <div class="stat"><span>صحيح</span><b id="correct">0</b></div>
   <div class="stat"><span>المحاولات</span><b id="attempts">0</b></div>
   <div class="stat"><span>النسبة</span><b id="rate">0%</b></div>
-  <div class="stat"><span>Streak</span><b id="streak">0</b></div>
+  <div class="stat"><span>السلسلة الصحيحة</span><b id="streak">0</b></div>
  </div>
 </section>
 
@@ -248,6 +248,21 @@ $("calcBtn").onclick=()=>{$("calcModal").classList.add("open");$("calcInput").fo
 $("answer").addEventListener("keydown",e=>{if(e.key==="Enter")check()});$("answer2").addEventListener("keydown",e=>{if(e.key==="Enter")check()});
 $("mode").onchange=makeTask;$("difficulty").onchange=makeTask;$("roundSize").onchange=resetRound;
 makeTask();updateStats();
+
+// VIDO Technology — automatic cyber background rotation
+const vidoBackgrounds=[
+  "./binary-background.jpg",
+  "./network-background.jpg",
+  "./circuit-background.jpg",
+  "./terminal-background.jpg"
+];
+let vidoBgIndex=0;
+function setVidoBackground(i){
+  vidoBgIndex=i % vidoBackgrounds.length;
+  document.documentElement.style.setProperty("--vido-bg", `url("${vidoBackgrounds[vidoBgIndex]}")`);
+}
+setVidoBackground(0);
+setInterval(()=>setVidoBackground(vidoBgIndex+1),15000);
 </script>
 </body>
 </html>
