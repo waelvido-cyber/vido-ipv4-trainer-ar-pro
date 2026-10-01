@@ -257,12 +257,15 @@ const vidoBackgrounds=[
   "./terminal-background.jpg"
 ];
 let vidoBgIndex=0;
+const vidoBgPreload=vidoBackgrounds.map(src=>{const img=new Image();img.src=src;return img;});
 function setVidoBackground(i){
   vidoBgIndex=i % vidoBackgrounds.length;
-  document.documentElement.style.setProperty("--vido-bg", `url("${vidoBackgrounds[vidoBgIndex]}")`);
+  const src=vidoBackgrounds[vidoBgIndex];
+  document.body.style.backgroundImage =
+    `linear-gradient(rgba(2,6,23,.72),rgba(2,6,23,.82)),url("${src}")`;
 }
 setVidoBackground(0);
-setInterval(()=>setVidoBackground(vidoBgIndex+1),15000);
+setInterval(()=>setVidoBackground(vidoBgIndex+1),10000);
 </script>
 </body>
 </html>
